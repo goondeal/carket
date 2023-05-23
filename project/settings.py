@@ -133,7 +133,15 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+gettext = lambda s: s
+LANGUAGES = (
+    ('en', gettext('English')),
+    ('ar', gettext('Arabic')),
+)
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
+
+LANGUAGE_CODE = 'en-us' #'ar-eg'
 
 TIME_ZONE = 'UTC'
 

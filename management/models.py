@@ -26,9 +26,10 @@ class State(models.Model):
     order = models.SmallIntegerField(default=0)
 
     class Meta:
-        ordering = ('order', )
+        ordering = ('order',)
         constraints = [
-            models.UniqueConstraint(fields=['country', 'name'], name='no_repeated_states_for_country')
+            models.UniqueConstraint(
+                fields=['country', 'name'], name='no_repeated_states_for_country')
         ]
 
     def __str__(self):
@@ -39,12 +40,13 @@ class City(models.Model):
     name = models.CharField(max_length=128)
     state = models.ForeignKey(State, on_delete=models.CASCADE)
     order = models.SmallIntegerField(default=0)
-    
+
     class Meta:
         verbose_name_plural = 'Cities'
         ordering = ('order',)
         constraints = [
-            models.UniqueConstraint(fields=['state', 'name'], name='no_repeated_cities_for_state')
+            models.UniqueConstraint(
+                fields=['state', 'name'], name='no_repeated_cities_for_state')
         ]
 
     def __str__(self):
