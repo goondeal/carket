@@ -47,9 +47,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # External apps
+    'bootstrap5',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
     # My apps
     'accounts',
+    'core',
 
 ]
 
@@ -137,8 +141,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# crispy_forms config
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# Auth Config
+LOGIN_URL = 'login' # this is the name of the url
+LOGOUT_REDIRECT_URL = 'login' # this is the name of the url
+LOGIN_REDIRECT_URL = 'index' # this is the name of the url

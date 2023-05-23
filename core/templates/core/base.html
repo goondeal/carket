@@ -1,0 +1,91 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}">{% trans 'CarKet' %}</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="#">{% trans 'search' %}</a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{% trans 'sell_car' %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{% trans 'contact_us' %}</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    {{ user.get_full_name }}
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">My profile</a></li>
+                                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="{% url 'logout' %}">logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary btn-sm text-white" href="{% url 'login' %}">{% trans 'login' %}/{% trans 'register' %}</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    {% block content %}
+    {% endblock %}
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2021 CarKet Platform. All rights reserved.</p>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-inline text-md-end">
+                        <li class="list-inline-item"><a href="#">{% trans 'about_us' %}</a></li>
+                        <!-- <li class="list-inline-item"><a href="#">FAQs</a></li> -->
+                        <li class="list-inline-item"><a href="#">{% trans 'contact_us' %}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
