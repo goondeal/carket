@@ -19,9 +19,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from core.views import IndexView
+from accounts.views import SignupView
 
 
 urlpatterns = [
+    # accounts
+    path('signup/', SignupView.as_view(), name='signup'),
+    path('accounts/', include('django.contrib.auth.urls')),
+
     # core
     path('', IndexView.as_view(), name='index'),
 
