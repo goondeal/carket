@@ -203,15 +203,17 @@ class Car(models.Model):
 
 
 class CarImage(models.Model):
-    img = models.ImageField(upload_to=get_car_image_upload_path)
+    img = models.ImageField(upload_to='cars') #get_car_image_upload_path)
     car = models.ForeignKey(
         Car, on_delete=models.CASCADE, related_name='images')
     order = models.PositiveSmallIntegerField()
 
 
 class Wishlist(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 

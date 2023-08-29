@@ -1,6 +1,9 @@
+import os
 import json
 import random
 from datetime import date
+from django.conf import settings
+
 from django.core.management.base import BaseCommand
 from core.models import *
 from management.models import *
@@ -196,13 +199,19 @@ class Command(BaseCommand):
                 fuel_type = random.choice(CarFuelType.objects.all())
                 color = random.choice(CarColor.objects.all())
                 interior_color = random.choice(CarColor.objects.all())
-                Car.objects.create(
+                car = Car.objects.create(
                     user=contact.user,
                     contact=contact,
                     country=c.state.country.name,
                     state=c.state.name,
 
-                    description='''احداث الخطّة الموسوعة بعض عل, يتعلّق الأثنان الأهداف أخر ما, عل تلك سياسة ديسمبر الضروري. بين أدنى عليها اكتوبر عن.
+                    description= ''' Motivated and technically adept professional with a strong interest 
+                    in backend development. Eager to embark on a career as a backend developer, leveraging
+                     a solid foundation in programming concepts and a passion for solving complex problems.
+                     Self-motivated and quick learner, committed to staying up-to-date with the 
+                    latest backend technologies and industry best practices. Seeking an opportunity to '''
+                     if c.state.country.code.lower() == 'us' else 
+                     '''احداث الخطّة الموسوعة بعض عل, يتعلّق الأثنان الأهداف أخر ما, عل تلك سياسة ديسمبر الضروري. بين أدنى عليها اكتوبر عن.
                      ٣٠ كما إنطلاق انتباه تكاليف, قد قام بقصف ممثّلة ألمانيا. كل الشهير الشرقي اليابان حتى, دول هو لغزو ليبين رجوعهم.
                      تُصب الأرض الخارجية إذ عدد, قام حادثة اليابان بريطانيا تم.
                      أي كما يونيو استدعى النزاع, بين لم كردة العالم للأراضي.
@@ -228,3 +237,12 @@ class Command(BaseCommand):
                     price_currency=c.state.country.currency,
                     price_currency_ar=c.state.country.currency_ar,
                 )
+
+                folder = random.choice(os.listdir(settings.MEDIA_ROOT / 'cars'))
+                files = random.choices(os.listdir(settings.MEDIA_ROOT / 'cars' / folder), k=3)
+                for i in range(len(files)):
+                    CarImage.objects.create(
+                        car=car,
+                        img=f'cars/{folder}/{files[i]}',
+                        order=i
+                    )

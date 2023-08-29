@@ -1,0 +1,35 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans 'Search' %}{% endblock %}
+
+{% block content %}
+<main class="container my-2">
+    <div class="bg-light w-100 m-auto" style="height: 250px;"></div>
+
+    <div class="row gx-2 w-100 my-2 m-auto" style="height: 1000px;">
+        <div class="col-9">
+            <div class="row gx-2">
+
+                <div class="col-4 bg-light">
+                    <small class="d-block text-muted">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</small>
+                        {% include './components/search_filter_form.html' with top_20_makes=top_20_makes%}
+                    </div>
+                <div class="col-8">
+                    {% for car in page_obj %}
+                    {% include './components/car_card.html' with car=car %}
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+        <div class="col-3 bg-light">
+            <div class="w-100 h-100"></div>
+        </div>
+    </div>
+
+</main>
+{% endblock %}
