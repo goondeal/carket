@@ -1,0 +1,145 @@
+<div>
+    <form action="{% url 'search' 'sa' %}" method="GET">
+        {% csrf_token %}
+        <!-- Make fieldset -->
+        <fieldset class="my-4 px-1">
+            <legend><small> Car Make </small></legend>
+            <span class="htmx-indicator">
+                Searching...
+            </span>
+            <div class="selected-values"></div>
+            <div class="">
+                <input class="form-control w-100" type="search" name="make_search" placeholder="Search Makes..."
+                    hx-post="{% url 'search_make' %}" hx-trigger="keyup changed delay:500ms, make_search"
+                    hx-target="#makes-search-results" hx-indicator=".htmx-indicator">
+
+                <!-- <div class="select-box" onclick="showMakesCheckboxes()">
+                    <div class="over-select">Select Options</div>
+                    <div class="selected-options"></div>
+                    <div class="dropdown-icon"><i class="fa fa-chevron-down"></i></div>
+                </div> -->
+                <select id="makes-search-results" class="makesCheckboxes bg-white" multiple>
+                    <!-- <input type="text" class="search-box" placeholder="Search"> -->
+                    <!-- <select name="makes" id="makes" multiple="multiple"> -->
+
+                    <!-- {% for make in top_20_makes %}
+                    <label class="checkbox-item">
+                        <input type="checkbox" class="checkbox" id="make{{ make.id }}" name="{{ make.id }}" value="{{ make.name }}">
+                        <label for="{{ make.id }}">{{ make.name }}</label>
+                    </label>
+                    {% endfor %} -->
+
+                    <!-- </select> -->
+                </select>
+            </div>
+
+        </fieldset>
+
+        <!-- price fieldset -->
+        <fieldset class="my-4">
+            <legend><small> Vehicle Price </small></legend>
+            <div>
+                <div class="mb-1">
+                    <small class="w-25 d-inline-block text-muted">From:</small>
+                    <input class="mx-1 w-50" type="number" id="priceFromInput" name="price_from" value="{{min_price}}"
+                        min="{{min_price}}" max="{{max_price}}" />
+                </div>
+                <div>
+                    <small class="w-25 d-inline-block text-muted">To:</small>
+                    <input class="mx-1 w-50" type="number" id="priceToInput" name="price_to" value="{{max_price}}"
+                        min="{{min_price}}" max="{{max_price}}" />
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- mileage fieldset -->
+        <fieldset class="my-4">
+            <legend><small> Mileage </small></legend>
+            <div class="d-flex justify-content-between">
+                <input type="range" name="mileage" min="{{min_mileage}}" max="{{max_mileage}}" value="{{max_mileage}}"
+                    class="slider" id="mileageSlider">
+            </div>
+        </fieldset>
+
+        <!-- year fieldset -->
+        <fieldset class="my-4">
+            <legend><small> Year </small></legend>
+            <div class="d-flex justify-content-between">
+                <div class="d-inline">
+                    <small class="text-muted">Min:</small>
+                    <input class="mx-1 w-50" type="number" id="minYear" name="min_year" value="{{min_year}}"
+                        min="{{min_year}}" max="{{max_year}}" />
+                </div>
+                <div class="d-inline">
+                    <small class="text-muted">Max:</small>
+                    <input class="mx-1 w-50" type="number" id="maxYear" name="max_year" value="{{max_year}}"
+                        min="{{min_year}}" max="{{max_year}}" />
+                </div>
+            </div>
+        </fieldset>
+        <button type="submit" class="m-auto bg-primary text-white">Search</button>
+        <!-- <input type="submit" value="Submit"> -->
+    </form>
+
+    <script>
+
+    </script>
+
+    <script>
+        const makesCheckboxes = document.querySelectorAll(".makesCheckboxes input[type='checkbox']");
+        const makesSearchBox = document.querySelector(".search-box");
+        const selectedMakes = document.querySelector(".selected-values");
+
+        let selectedItems = [];
+
+        function showMakesCheckboxes() {
+            const checkboxes = document.querySelector(".makesCheckboxes");
+            if (checkboxes.style.display === "block") {
+                checkboxes.style.display = "hidden";
+            } else {
+                checkboxes.style.display = "block";
+            }
+        }
+
+        function selectItem(e) {
+            const value = e.target.value;
+            if (e.target.checked) {
+                selectedItems.push(value);
+            } else {
+                const index = selectedItems.indexOf(value);
+                if (index !== -1) {
+                    selectedItems.splice(index, 1);
+                }
+            }
+            updateSelectedValues();
+        }
+
+        function updateSelectedValues() {
+            selectedMakes.innerHTML = "";
+            selectedItems.forEach((item) => {
+                const selectedValue = document.createElement("div");
+                selectedValue.classList.add("selected-value");
+                selectedValue.innerText = item;
+                selectedMakes.appendChild(selectedValue);
+            });
+        }
+
+        function filterItems() {
+            const filterValue = makesSearchBox.value.toLowerCase();
+            makesCheckboxes.forEach((checkbox) => {
+                const option = checkbox.nextElementSibling.innerText.toLowerCase();
+                if (option.indexOf(filterValue) > -1) {
+                    checkbox.parentElement.style.display = "block";
+                } else {
+                    checkbox.parentElement.style.display = "none";
+                }
+            });
+        }
+
+        makesCheckboxes.forEach((checkbox) => {
+            checkbox.addEventListener("change", selectItem);
+        });
+
+        makesSearchBox.addEventListener("keyup", filterItems);
+    </script>
+</div>

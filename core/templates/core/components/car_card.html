@@ -1,0 +1,28 @@
+{% load humanize %}
+{% load static %}
+
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <div class="d-flex h-100 justify-content-center">
+                {% if car.images.count > 0 %}
+                {% with car.images.all|first as car_pic %}
+                <img src="{{car_pic.img.url}}" class="img-fluid rounded-start" alt="{{ car.name }}">
+                {% endwith %}
+                {% else %}
+                <div class="bg-secondary w-100 h-100"></div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ car.name }}</h5>
+                <p class="card-text">{{ car.price|intcomma }} {{ car.price_currency }}</p>
+                <p class="card-text">{{ car.mileage|intcomma }} Km</p>
+                <p class="card-text">
+                    <small class="text-muted">{{car.created_at|naturalday}}</small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -18,7 +18,7 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from core.views import IndexView
+from core.views import IndexView, SearchCarsListView, search_make_by_name, Wishlist, add_car_to_wishlist, remove_car_from_wishlist, PublishedCars, RequestedCars
 from accounts.views import SignupView
 
 
@@ -29,10 +29,23 @@ urlpatterns = [
 
     # core
     path('', IndexView.as_view(), name='index'),
+    path('search/<str:country_code>/', SearchCarsListView.as_view(), name='search'),
+    path('search-make/', search_make_by_name, name='search_make'),
+
+    # core - wishlist
+    path('wishlist/', Wishlist.as_view(), name='get_wishlist'),
+    path('wishlist/add/<int:car_id>/', add_car_to_wishlist, name='add_to_wishlist'),
+    path('wishlist/remove/<int:car_id>/', remove_car_from_wishlist, name='remove_from_wishlist'),
+
+    # core - published cars
+    path('cars/published/', PublishedCars.as_view(), name='get_published_cars'),
+    # core - requested cars
+    path('cars/requested/', RequestedCars.as_view(), name='get_requested_cars'),
 
     # admin
     path('admin/', admin.site.urls),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

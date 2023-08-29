@@ -1,0 +1,21 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'My Cars' %}{% endblock %}
+
+
+{% block content %}
+<div class="row gx-2 w-100 my-2 m-auto" style="height: 1000px;">
+    <div class="col-9">
+        <div>
+            {% for car in page_obj %}
+            {% include './components/car_card.html' with car=car %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="col-3 bg-light">
+        <div class="w-100 h-100"></div>
+    </div>
+</div>
+{% endblock %}

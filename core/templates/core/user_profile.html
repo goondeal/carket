@@ -1,0 +1,73 @@
+
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'My Account - Car Platform' %}{% endblock %}
+
+
+
+
+
+
+{% block content %}
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Car Platform</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Search</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sell Car</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">My Account</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+<main>
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Dashboard</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group">
+                <li class="list-group-item"><a href="#">Saved Searches</a></li>
+                <li class="list-group-item"><a href="#">Alerts</a></li>
+                <li class="list-group-item"><a href="#">Recently Viewed Cars</a></li>
+                <li class="list-group-item"><a href="#">Profile</a></li>
+                <li class="list-group-item"><a href="#">Account Settings</a></li>
+                <li class="list-group-item"><a href="#">Payment and Billing</a></li>
+                <li class="list-group-item"><a href="#">Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Saved Searches</h5>
+              <p class="card-text">View and manage your saved searches.</p>
+              <a href="#" class="btn btn-primary">View Saved Searches</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}
